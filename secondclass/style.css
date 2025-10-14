@@ -1,1 +1,60 @@
+body {
+    font-family: Tahoma;
+    font-size: 11pt;
+    line-height: 1.2em;
+    padding: 0px;
+    margin: 0;
+}
 
+h1 {
+    background-color: navy;
+    color: white;
+    padding: 16px;
+    margin: 0 0 16px 0;
+}
+
+table {
+    border: 1px solid gray;
+    border-collapse: collapse;
+    float: left;
+    width: 60%;
+}
+
+th,td {
+    border: 1px solid gray;
+    padding: 8px 12px;
+}
+
+caption {
+    font-weight: bold;
+    border: 1px solid gray;
+    padding: 8px 12px;
+    background-color: #E0E0E0;
+}
+
+thead th, tfoot td {
+    font-weight: bold;
+    background-color: #EEEEEE;
+}
+
+form {
+    border: 1px solid gray;
+    padding: 8px;
+    background-color: #EEEEEE;
+    float: right;
+    width: 30%;
+}
+
+input {
+    margin: 5px;
+    display: block;
+    width: 50%;
+    float: right;
+}
+
+label {
+    display: block;
+    width: 40%;
+    float: left;
+    clear: both; /* for aligning with inputs */
+}
