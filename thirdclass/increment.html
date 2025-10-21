@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <p>1</p>
+    <input type="button" value="Incrementeaza" />
+</body>
+<script type="text/javascript">
+    const paragraf = document.querySelector('p')
+    const buton = document.querySelector('input')
+    const paragrafNou = document.createElement('p')
+    document.querySelector('body').append(paragrafNou)
+    buton.onclick = () => {
+        let valoare = parseInt(paragraf.innerText)
+        paragraf.innerText = valoare + 1
+        paragrafNou.innerText = `Am modificat valoarea in ${paragraf.innerText}`
+    }
+</script>
+</html>
