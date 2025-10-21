@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        body {
+            font-family: Tahoma;
+            font-size: 11pt;
+            line-height: 1.2em;
+            padding: 0px;
+            margin: 0;
+        }
+
+        h1 {
+            background-color: navy;
+            color: white;
+            padding: 16px;
+            margin: 0 0 16px 0;
+        }
+
+        table {
+            border: 1px solid gray;
+            border-collapse: collapse;
+            float: left;
+            width: 60%;
+        }
+
+        th, td {
+            border: 1px solid gray;
+            padding: 8px 12px;
+        }
+
+        caption {
+            font-weight: bold;
+            border: 1px solid gray;
+            padding: 8px 12px;
+            background-color: #E0E0E0;
+        }
+
+        thead th, tfoot td {
+            font-weight: bold;
+            background-color: #EEEEEE;
+        }
+
+        form {
+            border: 1px solid gray;
+            padding: 8px;
+            background-color: #EEEEEE;
+            float: right;
+            width: 30%;
+        }
+
+        input {
+            margin: 5px;
+            display: block;
+            width: 50%;
+            float: right;
+        }
+
+        label {
+            display: block;
+            width: 40%;
+            float: left;
+            clear: both; /* for aligning with inputs */
+        }
+    </style>
+</head>
+<body>
+    <h1>Agenda telefonica</h1>
+    <table>
+        <caption>Lista persoane</caption>
+        <thead>
+            <tr>
+                <th>Nume</th>
+                <th>Prenume</th>
+                <th>Telefon</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Popescu</td>
+                <td>Ion</td>
+                <td>0723456789</td>
+            </tr>
+            <tr>
+                <td>Vasilecu</td>
+                <td>Maria</td>
+                <td>0723456789</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Numar persoane: 2</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <form>
+        <label for="nume">Nume</label>
+        <input id="nume" />
+        <label for="prenume">Prenume</label>
+        <input id="prenume" />
+        <label for="telefon">Telefon</label>
+        <input id="telefon" />
+
+        <input type="button" value="Adauga" id="button"/>
+    </form>
+</body>
+<script>
+    const nume = document.getElementById('nume')
+    const prenume = document.getElementById('prenume')
+    const telefon = document.getElementById('telefon')
+
+    const buton = document.getElementById('button')
+
+    buton.onclick = () => {
+        const tr = document.createElement('tr');
+
+        const tdNume = document.createElement('td');
+        tdNume.textContent = nume.value;
+
+        const tdPrenume = document.createElement('td');
+        tdPrenume.textContent = prenume.value;
+
+        const tdTelefon = document.createElement('td');
+        tdTelefon.textContent = telefon.value;
+
+        tr.appendChild(tdNume);
+        tr.appendChild(tdPrenume);
+        tr.appendChild(tdTelefon);
+
+        if (nume.value !== '' && prenume.value !== '' && telefon.value !== '') {
+            document.querySelector('tbody').appendChild(tr);
+        }
+
+        const tfootCell = document.querySelector('tfoot td');
+        const totalRows = document.querySelectorAll('tbody tr').length;
+        tfootCell.textContent = `Numar persoane: ${totalRows}`;
+
+        nume.value = '';
+        prenume.value = '';
+        telefon.value = '';
+    }
+</script>
+</html>
