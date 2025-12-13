@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+
+        h1 {
+            margin: 0;
+            padding: 8px;
+            background-color: lightblue;
+        }
+
+        svg {
+            background-color: lightgray;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            cursor: crosshair;
+        }
+
+            svg rect {
+                fill: gray;
+                fill-opacity: 0.5;
+                stroke: navy;
+                stroke-opacity: 0.8;
+            }
+
+        #selectie {
+            fill: transparent;
+            stroke-width: 3;
+            stroke: green;
+            stroke-dasharray: 3 3;
+        }
+
+        .selectat {
+            fill: orange;
+        }
+    </style>
+</head>
+<script>
+    let editor, elemente, selectie;
+    let mx = 0, my = 0, x0 = 0, y0 = 0;
+
+    function setareCoordonate(r, x1, y1, x2, y2) {
+        r.setAttribute("x", Math.min(x1, x2));
+        r.setAttribute("y", Math.min(y1, y2));
+        r.setAttribute("width", Math.abs(x2 - x1));
+        r.setAttribute("height", Math.abs(y2 - y1));
+    }
+
+    function mousedown(e) {
+        selectie.style.display = "block";
+        x0 = mx;
+        y0 = my;
+    }
+    function mouseup(e) {
+        selectie.style.display = "none";
+
+        let newRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        setareCoordonate(newRect, x0, y0, mx, my);
+        elemente.appendChild(newRect);
+
+        newRect.addEventListener('contextmenu', e => {
+            e.preventDefault();
+            elementSelectat = newRect;
+            [...elemente.querySelectorAll('*')].forEach(e1 => e1.classList.remove('selectat'));
+            elementSelectat.classList.add('selectat');
+        })
+    }
+    function mousemove(e) {
+        mx = Math.round(e.x - editor.getBoundingClientRect().x);
+        my = Math.round(e.y - editor.getBoundingClientRect().y);
+        setareCoordonate(selectie, x0, y0, mx, my);
+
+        document.querySelector("#editor text").textContent = `x=${mx} y=${my}`;
+    }
+    function aplicatie() {
+        editor = document.querySelector("#editor");
+        elemente = document.querySelector("#elemente");
+        selectie = document.querySelector("#selectie");
+        selectie.style.display = "none";
+
+        editor.addEventListener("mousedown", mousedown);
+        editor.addEventListener("mouseup", mouseup);
+        editor.addEventListener("mousemove", mousemove);
+
+        let newRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        newRect.setAttribute("x", 200);
+        newRect.setAttribute("y", 150);
+        newRect.setAttribute("width", 100);
+        newRect.setAttribute("height", 80);
+        newRect.height = 80;
+        elemente.appendChild(newRect);
+    }
+    document.addEventListener("DOMContentLoaded", aplicatie);
+</script>
+<body>
+    <h1>Editor SVG</h1>
+    <svg id="editor">
+        <g id="elemente">
+            <rect x="120" y="50" width="80" height="60" display="none"></rect>
+            <rect x="150" y="70" width="80" height="60" display="none"></rect>
+        </g>
+        <rect id="selectie" x="10" y="70" width="60" height="50" display="none">
+
+        </rect>
+        <text x="10" y="15">X</text>
+    </svg>
+</body>
+</html>
